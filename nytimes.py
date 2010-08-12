@@ -1,4 +1,5 @@
 import yql
+import operator
 
 # http://developer.nytimes.com/docs/article_search_api/#h3-data-fields
 # x = a.query('select * from nyt.article.search(200) where query="title:chernobyl nuclear" and rank="oldest"')
@@ -33,9 +34,11 @@ class NYTimes:
         yql_query = self.get_yql_query(query, title, args)
         return self.execute(yql_query)
  
-    def get_counts(self, query, title="", **args):
+    def get_count(self, query, title="", **args):
         yql_query = self.get_yql_query(query, title, args) + """ and facets="publication_year" """
-        return self.execute(yql_query)
+        result = self.execute(yql_query).results()
+        count = reduce(operator.add, map( lambda i: int(i['count']), result['facets']['publication_year']))
+        return count
 
     def execute(self, yql_query):
         y = yql.YQL()
