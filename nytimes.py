@@ -12,7 +12,7 @@ import yql
 
 class NYTimes:
 
-    def __init__(self, limit=200):
+    def __init__(self, limit=10):
         self.__limit = limit
         self.__query_default = "select * from nyt.article.search(%d) where "%(self.__limit)
         return
@@ -80,6 +80,8 @@ def get_total_number_of_articles(yql_result):
     try:
         publication_year = yql_result.results()['facets']['publication_year']
     except KeyError, e:
+        return 0
+    except StandardError, e:
         return 0
     
     try:

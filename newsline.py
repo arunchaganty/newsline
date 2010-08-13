@@ -7,6 +7,8 @@ import extract
 import nytimes
 import util
 
+import sys
+
 def NewsLine(filename):
     a = article.read_article_from_file(filename)
     util.Log("Finished Reading Article.")
@@ -20,4 +22,9 @@ def NewsLine(filename):
     return
 
 if __name__ == '__main__':
-    NewsLine("data/chernobyl-russian-fires-2010-08-11.txt")
+    if len(sys.argv) != 2:
+        print "Usage %s <article>"%(sys.argv[0])
+
+    s = sys.argv[1]
+    NewsLine(s)
+
