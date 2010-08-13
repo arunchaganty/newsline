@@ -14,7 +14,6 @@ def getWordDist():
         return __word_dist
 
 class Article:
-
     def __init__(self, title, lead, text):
         self.title = nltk.Text(nltk.wordpunct_tokenize(title))
         self.lead = nltk.Text(nltk.wordpunct_tokenize(lead))
