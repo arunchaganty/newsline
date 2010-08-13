@@ -3,6 +3,7 @@ Miscellaneous Util Functions
 """
 
 import sys
+import unicodedata
 
 def Log(s, stream=sys.stderr, newline=True):
     stream.write(s)
@@ -11,5 +12,12 @@ def Log(s, stream=sys.stderr, newline=True):
     return
 
 def unicode_to_ascii(text):
-    return ''.join([c for c in text if ord(c) < 128])
+    li = []
+    for c in text:
+        if ord(c) < 128:
+            li.append(c)
+        else:
+            li.append(' ')
+
+    return ''.join(li)
 
