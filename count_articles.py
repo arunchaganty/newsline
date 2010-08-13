@@ -12,9 +12,9 @@ class CountArticleThread(threading.Thread):
         self.count = 0
 
     def run(self):
-       n = nytimes.NYTimes()
-       self.count = nytimes.get_total_number_of_articles(
-           n.get_counts(self.keyword, self.title_keyword))
+        n = nytimes.NYTimes()
+        self.count = nytimes.get_total_number_of_articles(
+            n.get_counts(self.keyword, self.title_keyword))
 
 
 def count_articles(search_queries):
