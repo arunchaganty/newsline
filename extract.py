@@ -37,10 +37,20 @@ def extract_keywords(article):
 
     # Choose the proper nouns from the lead paragraph 
     # Tag POS (HACK)
-    relevant_lead = [ w[0] for w in nltk.pos_tag(relevant_lead) if w[1].startswith("NNP") ]
+    relevant_lead = [w[0] for w in nltk.pos_tag(relevant_lead) if w[1].startswith("NNP") ]
 
+    text = set(article.text)
+
+    # Make sure that the words we use are actually present in the article.
+    # relevant_title = set(relevant_title)
+    # relevant_lead = set(relevant_lead)
+    relevant_title = set(relevant_title).intersection(text)
+    relevant_lead = set(relevant_lead).intersection(text)
+
+    print relevant_title, relevant_lead
     # Keywords
-    keywords = relevant_lead + relevant_title
+    keywords = list(relevant_lead.union(relevant_title))
+    print keywords
 
     return keywords
 
