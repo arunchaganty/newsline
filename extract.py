@@ -1,26 +1,23 @@
 """
-Extract keywords from news articles
+Extract keywords from news articles.
 """
 
-import nltk
 import math
 import re
 
-__word_dist = None
-def getWordDist():
-    if __word_dist == None:
-        __word_dist = nltk.FreqDist(nltk.corpus.reuters.words())
-    else :
-        return __word_dist
+import nltk
 
-class Article:
-    def __init__(self, title, lead, text):
-        self.title = nltk.Text(nltk.wordpunct_tokenize(title))
-        self.lead = nltk.Text(nltk.wordpunct_tokenize(lead))
-        self.text = nltk.Text(nltk.wordpunct_tokenize(text))
+__word_distribution = None
+
+def get_word_distribution():
+    global __word_distribution
+    if __word_distribution == None:
+        __word_distribution = nltk.FreqDist(nltk.corpus.reuters.words())
+    else :
+        return __word_distribution
 
 def extract_keywords(article):
-    """Extract keywords from a text """
+    """Extract keywords from an article class. """
 
     # Remove stopwords
     relevant_title = [w for w in set(article.title) if w not in nltk.corpus.stopwords.words()]
@@ -29,8 +26,9 @@ def extract_keywords(article):
     relevant_lead = [w for w in relevant_lead if not re.match("^[^a-zA-Z]+$", w)]
 
     # Choose special words in i
-    # keywords = [w[0] for w in tagged if not w[1].startswith("NNP") and __word_dist[w[0]] <= __special_threshold]
-    # keywords.sort(key = lambda w: 1/float(__word_dist[w]))
+    # keywords = [w[0] for w in tagged if not w[1].startswith("NNP") and
+    #     __word_distribution[w[0]] <= __special_threshold]
+    # keywords.sort(key = lambda w: 1/float(__word_distribution[w]))
     # keywords = keywords[0:2]
 
     # Choose the proper nouns from the lead paragraph 
@@ -51,11 +49,12 @@ def rank_keywords(article, keywords, count_fun):
     # Calculate TF (modified)
     TF = {}
 
-    lead_fdist = nltk.FreqDist(article.title.tokens + article.lead.tokens)
-    text_fdist = nltk.FreqDist(article.text)
+    lead_fdistribution = nltk.FreqDist(article.title.tokens + article.lead.tokens)
+    text_fdistribution = nltk.FreqDist(article.text)
 
     for word in keywords:
-        TF[word] = leadFactor * lead_fdist[word] / lead_fdist.N() + (1-leadFactor) * text_fdist[word] / text_fdist.N()
+        TF[word] = leadFactor * lead_fdistribution[word] / lead_fdistribution.N() \
+            + (1-leadFactor) * text_fdistribution[word] / text_fdistribution.N()
 
     # Calculate IDF
     IDF = {}
