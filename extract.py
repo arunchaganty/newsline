@@ -2,6 +2,7 @@
 Extract keywords from news articles.
 """
 
+import count_articles
 import util
 
 import nltk
@@ -43,8 +44,12 @@ def extract_keywords(article):
 
     return keywords
 
-def rank_keywords(article, keywords, count_fun):
-    """Rank keywords in terms of their importance to the article."""
+def rank_keywords(article, keywords, count_function):
+    """Rank keywords in terms of their importance to the article.
+
+       The count function takes a list of pairs [(k, t)]. The first string in
+       the pair is a keyword to be searched, and the second is a title
+       keyword."""
 
     # Importance of appearance in lead para/title
     leadFactor = 0.8
@@ -66,9 +71,9 @@ def rank_keywords(article, keywords, count_fun):
     # Replace with the result of 
     # D = count_fun('a')
     D = 1385541
-    for word in keywords:
-        d = count_fun(word) # Execute a search here to get d (no. of doc.) -> log(D/d) 
-        util.Log("Fetched from NYTimes count(%s)."%word)
+
+    article_frequency = count_function([(w, "") for w in keywords])
+    for (word, d) in zip(keywords, article_frequency):
         if d > 0:
             IDF[word] = math.log(D/d)
         else:

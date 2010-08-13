@@ -3,8 +3,8 @@
 #
 
 import article
+import count_articles
 import extract
-import nytimes
 import util
 
 import sys
@@ -15,7 +15,7 @@ def NewsLine(filename):
     k = extract.extract_keywords(a)
     util.Log("Finished Extracting Keywords.")
     ranked_keywords = extract.rank_keywords(a, k, 
-        nytimes.count_articles_for_keyword)
+        count_articles.count_articles)
 
     print ranked_keywords
 

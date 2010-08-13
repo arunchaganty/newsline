@@ -94,11 +94,3 @@ def get_total_number_of_articles(yql_result):
     except StandardError:
         return 0
 
-
-def count_articles_for_keyword(keyword, title_keyword=""):
-    """ A helper function for the keyword ranker.  It simply takes a keyword (a
-        string), and a keyword in the title (title_keyword), and returns the
-        number of articles with it. """
-
-    n = NYTimes()
-    return get_total_number_of_articles(n.get_counts(keyword, title_keyword))
