@@ -2,10 +2,13 @@
 Extract keywords from news articles.
 """
 
+import util
+
+import nltk
+
 import math
 import re
 
-import nltk
 
 __word_distribution = None
 
@@ -60,9 +63,12 @@ def rank_keywords(article, keywords, count_fun):
     IDF = {}
 
     # Get total documents(D) by searching for 'a' <- really common word
-    D = count_fun('a')
+    # Replace with the result of 
+    # D = count_fun('a')
+    D = 1385541
     for word in keywords:
         d = count_fun(word) # Execute a search here to get d (no. of doc.) -> log(D/d) 
+        util.Log("Fetched from NYTimes count(%s)."%word)
         if d > 0:
             IDF[word] = math.log(D/d)
         else:

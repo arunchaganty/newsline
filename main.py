@@ -5,6 +5,7 @@
 import newsline
 
 def main():
+  pass
 
 
 
