@@ -3,7 +3,7 @@ import yql
 """ Contains the NYTimes class that searches the New York Times. 
     Example Usage:
       import nytimes
-      n = nytimes.NYTimes
+      n = nytimes.NYTimes()
       
       nytimes.get_total_number_of_articles(n.get_counts("elections", "obama"))
 
