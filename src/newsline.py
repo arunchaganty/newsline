@@ -14,7 +14,7 @@ import sys
 import pdb
 
 import calais_extractor
-import nltk_extractor
+# import unused.nltk_extractor
 
 extractor = calais_extractor.CalaisExtractor()
 #extractor = nltk_extractor.NLTKExtractor()
