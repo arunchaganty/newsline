@@ -25,10 +25,12 @@ def api(request):
             if not newsline.CheckUri(url):
                 reply["error"] = "'url' not from recognized news site"
             else:
-                data = newsline.NewsLine(url, is_html=True)
-                print data
-                # json understands dicts
-                reply["data"] = map(lambda x: x.toDict(), data)
+                try:
+                    data = newsline.NewsLine(url, is_html=True)
+                    # json understands dicts
+                    reply["data"] = map(lambda x: x.toDict(), data)
+                except StandardError:
+                    reply["error"] = "Unknown error"
     else:
         reply["error"] = "POST argument 'url' required"
 
