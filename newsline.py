@@ -14,8 +14,8 @@ import sys
 
 import calais
 import nltkExtractor
-#extractor = calais.Calais()
-extractor = nltkExtractor.NLTKExtractor()
+extractor = calais.Calais()
+#extractor = nltkExtractor.NLTKExtractor()
 
 def NewsLine(filename):
     a = article.read_article_from_file(filename)
