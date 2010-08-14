@@ -3,33 +3,15 @@
 #
 
 import article
-import count_articles
+import count_articles_threaded
 import extract
-import get_articles
+import get_articles_threaded
 import make_queries
+import newsitem
+import select_best_articles
 import util
 
 import sys
-import random
-
-class NewsItem:
-    def __init__(self, d):
-        self.date = int(d['date'])
-        self.url = d['url']
-        self.body = d['body']
-        self.title = d['title']
-
-    def __cmp__(self, y):
-        return self.date < y.date
-
-    def __hash__(self):
-        return self.title.__hash__()
-
-    def __repr__(self):
-        return "%10d %100s"%(self.date, self.title)
-
-    def __str__(self):
-        return "% 80s %10d"%(self.title, self.date)
 
 def NewsLine(filename):
     a = article.read_article_from_file(filename)
@@ -39,13 +21,11 @@ def NewsLine(filename):
     ranked_keywords = extract.rank_keywords(k) 
 
     search_query = make_queries.MakeQueriesFromKeywords(ranked_keywords)
-    print search_query
+    articles = get_articles_threaded.get_articles(search_query)
 
-    articles = get_articles.get_articles(search_query)
-    print articles
+    articles = [[newsitem.NewsItem(a) for a in group] for group in articles]
 
-    articles = [[NewsItem(a) for a in group] for group in articles]
-    articles = choose_relevant_articles(articles, ranked_keywords)
+    articles = select_best_articles.choose_relevant_articles(articles, ranked_keywords)
 
     articles.sort(reverse=True)
 
@@ -53,25 +33,6 @@ def NewsLine(filename):
         print a
 
     return
-
-def choose_relevant_articles(articles, ranked_keywords):
-    # Sort each of the set of articles by date
-    for x in articles:
-        x.sort(reverse=True)
-
-    relevances = [b for (a, b) in ranked_keywords]
-    probabilites = [x/sum(relevances) for x in relevances] + [0.2] * 10
-
-    final_articles = set()
-
-    for i in range(len(articles)):
-        for y in articles[i]:
-            final_articles.add(y)
-            if random.uniform(0, 1) > probabilites[i]:
-                break
-
-    return list(final_articles)
-
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:

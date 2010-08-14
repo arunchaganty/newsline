@@ -2,7 +2,7 @@
 Extract keywords from news articles.
 """
 
-import count_articles
+import count_articles_threaded
 import util
 
 import calais
