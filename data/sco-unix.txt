@@ -1,0 +1,48 @@
+Copyright Lawsuit Is Turnabout for SCO
+
+SAN FRANCISCO, Oct. 12 - The SCO Group, the company that touched off a computer industry slugfest last spring by suing I.B.M. over its use of Unix software, may find itself embarrassed by a similar claim against a company once related to SCO.
+
+Since filing a lawsuit claiming that I.B.M. added parts of the Unix operating system to the freely distributed Linux software, SCO has threatened other computer companies, the open source software movement and hundreds of corporations that rely on Linux, saying they are unfairly using Unix software that SCO owns.
+
+But in an unpublicized case, one of SCO's former sister companies, Lineo, has agreed to quietly settle a third party's accusations that it engaged in the same kind of copyright infringement that is at the heart of SCO's claim against I.B.M., industry executives who have been briefed on the matter said.
+
+The case spotlights the behind-the-scenes role of Canopy, an investment firm formed by Ray Noorda, the founder of Novell and a personal computer industry pioneer. Canopy is SCO's largest shareholder and formerly controlled Lineo.
+
+Mr. Noorda, who has retired, acquired the rights to the Unix operating system from AT&T in 1992 while he was running Novell. He hoped to use Unix in his strategy to compete with Microsoft . Later that strategy shifted to backing the freely distributed Linux operating system, and Mr. Noorda helped finance a number of Linux software companies, including Caldera Systems, which last year changed its name to SCO Group. Lineo, was spun out of Caldera in 1999 and sold to Motorola last December.
+
+Lineo was sued last year by MontaVista, a maker of software for specialized computers used in consumer and industrial applications that is based in Sunnyvale, Calif. The MontaVista executives said they had been notified that software their programmers had written and licensed under the GNU General Public License - the license that governs companies that distribute Linux software - had appeared, with copyrights removed, in Lineo's software. The license, which allows for the free distribution of software, still requires that the copyright notices be retained.
+
+Neither side would comment on the settlement, which was put under a court seal last month.
+
+SCO, based in Lindon, Utah, has been pursuing its litigation since shortly after Darl McBride took over as chief executive in June 2001 and decided that the company's commercial Linux strategy was failing. Under Mr. McBride, SCO has aggressively pursued what it contends are its intellectual property rights over the parts of the Unix operating system that it says I.B.M. transferred to Linux.
+
+IBM and others in the open source movement note that SCO has provided little, if any, public evidence that its copyright has been violated.
+
+Canopy is now SCO's largest shareholder, with two seats on the company's board, and has played an important role, analysts say, in shaping SCO's legal strategy.
+
+"All roads lead to Canopy," said Laura Didio, a computer industry analyst at the Yankee Group. "They've been pretty clever in the way they've played this."
+
+Although it styles itself as a low-profile early stage investment firm, Canopy has had other significant legal successes. In 2000 the firm won a $250 million antitrust lawsuit against Microsoft over its earlier DOS operating system. In August another Canopy-owned company, Center 7, won a $40 million ruling against Computer Associates.
+
+Although neither party would comment on why the Lineo-MontaVista lawsuit had been sealed, legal experts said that it was probably because it might have a direct bearing on the dispute between SCO and I.B.M. One possibility involves a legal defense known as "innocent infringement" in which a copyright violator infringes unknowingly. If it became public knowledge that Lineo admitted guilt but settled for a relatively trivial sum by invoking that argument, it might come back to haunt SCO.
+
+"If there are transcripts and pleadings that have been sealed in which Lineo makes the innocent infringement argument, that's a defense that I.B.M. and others could use in their lawsuits," said Jack Russo, an intellectual property lawyer at Russo and Hale in Palo Alto, Calif. "There is not a lot of law in this area and my sense is they are worried that this is something that I.B.M. could run with."
+
+In a telephone interview, Canopy's chief executive acknowledged that Lineo had infringed on MontaVista's copyrights but blamed the transgression on the work of Hexamark Technologies, an Indian outsourcing company that worked for Lineo.
+
+"This story may speak more to the dangers and cautions of working with these outsourced companies," said Ralph Yarro, chief executive of the Canopy Group. He added that when the incident took place Canopy was no longer the majority shareholder of Lineo.
+
+Mr. Yarro, who is also chairman of SCO and led Canopy's lawsuit against Microsoft, argued that his company is not trying to destroy Linux but was simply asserting its intellectual property rights.
+
+"The question is: 'How can we fix this issue and move forward?' " he said. "I'd like to see Linux survive."
+
+He acknowledged that the Lineo suit did in certain ways parallel issues in the dispute between SCO and I.B.M.
+
+"SCO picked a big fight and it flowed over to the Linux environment and we found ourselves in an awkward position," he said. "For better or for worse it's one of the cautions and dangers and flaws for the model. It happened to Lineo and has happened to several others."
+
+Canopy's stance has angered people who develop open source software who have argued that the strategic intent is not so much to establish the truth of its claim but to drive up SCO's stock price. Since filing the lawsuit, SCO's stock has risen to $16.42 on Friday from $2.88 on March 31.
+
+"These guys are making fraudulent accusations," said Bruce Perens, an open source software advocate. "They've had time to understand that they're wrong."
+
+Mr. Yarro said: "I know I've been painted in a rough light. I hope that our companies are our legacy and not our lawsuits."
+

@@ -1,0 +1,21 @@
+Executive Leaves After iPhone Trouble
+
+Mark Papermaster, the Apple executive in charge of hardware for the company’s flagship iPhone, has left the company in the wake of widely reported problems with the antenna of the recently introduced iPhone 4.
+
+Apple confirmed Mr. Papermaster’s departure, but would not say whether he was ousted or left of his own accord. Reached on his cellphone, Mr. Papermaster declined to comment.
+
+A person with direct knowledge of the situation, who agreed to speak on the condition of anonymity because he was not authorized to discuss it, said Mr. Papermaster had been pushed out over a series of hardware problems, including some related to the iPod Touch.
+
+Bob Mansfield, senior vice president for Macintosh hardware engineering, will assume Mr. Papermaster’s responsibilities. Mr. Mansfield already oversees several technologies that are part of the iPhone, including the A4 chip, the retina display and touch screens, said Steve Dowling, an Apple spokesman.
+
+Apple recruited Mr. Papermaster in 2008, setting off a prominent battle with I.B.M, where in a 25-year-career he had risen to the top levels of management. I.B.M. sued Mr. Papermaster in federal court in an attempt to prevent him from joining Apple, saying that he had signed a noncompete agreement. The parties settled the case after Mr. Papermaster testified in court that he had not revealed any trade secrets.
+
+When Steven P. Jobs, the chief of Apple, introduced the iPhone 4, he hailed the design of its antenna, which is built into a steel band that encases the phone. But almost immediately after the phone went on sale, consumers began to complain that when they touched a spot on the lower left section of the device, reception would decrease sharply, in some cases resulting in dropped calls.
+
+The problems, and Apple’s clumsy response, turned into a public relations mess for the company. Apple first recommended that users hold the phone in a way that avoided contact with the lower left section of the device. The company later said it found a software problem with the signal meter that indicates cellphone reception.
+
+Embarrassingly, the company said the problem affected not only the iPhone 4, but also earlier models. While Apple fixed the problem, complaints about the antenna continued to rise.
+
+After Consumer Reports shone a spotlight on the problems and said it could not recommend the iPhone 4, Apple called a news conference on July 16, at which Mr. Jobs mounted an impassioned defense of the device. Mr. Jobs said other smartphones suffered from similar problems, an assertion that was challenged by several of Apple’s competitors.
+
+But in an effort to put the problem behind the company, Mr. Jobs offered free bumpers to all iPhone 4 customers. By insulating the antenna from human touch, the bumpers solve the reception problems. 
