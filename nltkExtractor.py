@@ -19,21 +19,21 @@ class NLTKExtractor(Extractor):
         # Remove stopwords
         relevant_title = [w for w in set(article.title) if w not in nltk.corpus.stopwords.words()]
         relevant_title = [w for w in relevant_title if not re.match("^[^a-zA-Z]+$", w)]
-        relevant_lead = [w for w in set(article.lead) if w not in nltk.corpus.stopwords.words()]
-        relevant_lead = [w for w in relevant_lead if not re.match("^[^a-zA-Z]+$", w)]
+        relevant_text = [w for w in set(article.text) if w not in nltk.corpus.stopwords.words()]
+        relevant_text = [w for w in relevant_text if not re.match("^[^a-zA-Z]+$", w)]
     
         # Choose the proper nouns from the lead paragraph 
         # Tag POS (HACK)
-        relevant_lead = [w[0] for w in nltk.pos_tag(relevant_lead) if w[1].startswith("NNP") ]
+        relevant_text = [w[0] for w in nltk.pos_tag(relevant_text) if w[1].startswith("NNP") ]
     
         text = set(article.text)
     
         # Make sure that the words we use are actually present in the article.
         relevant_title = set(relevant_title).intersection(text)
-        relevant_lead = set(relevant_lead).intersection(text)
+        relevant_text = set(relevant_text).intersection(text)
     
         # Keywords
-        keywords = list(relevant_lead.union(relevant_title))
+        keywords = list(relevant_text.union(relevant_title))
 
         # Get TF scores
         leadFactor = 0.8
@@ -43,12 +43,14 @@ class NLTKExtractor(Extractor):
         tf_func = lambda word: leadFactor * lead_fdist[word] / lead_fdist.N() \
                 + (1-leadFactor) * text_fdist[word] / text_fdist.N()
 
-        keywords = [ (word, tf_func(word)) for word in keywords ]
+        keywords = [ (word, tf_func(word)) for word in keywords if len(word) > 1 ]
 
         return keywords
 
-    def rank_keywords(self, keywords):
+    def rank_keywords(self, keywords, count=4):
         """Rank keywords in terms of their importance to the article."""
+
+        keywords = keywords[:count]
     
         # Calculate IDF
     
