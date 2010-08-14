@@ -1,6 +1,6 @@
 import util
 import re
-from datetime import date
+import datetime
 
 import pdb
 
@@ -9,7 +9,7 @@ class NewsItem:
 
     def __init__(self, d):
         yyyymmdd = map(int, self.__date_re.match(d['date']).groups())
-        self.date = date(*yyyymmdd)
+        self.date = datetime.date(*yyyymmdd)
         self.url = util.unicode_to_ascii(d['url'])
         self.title = util.unicode_to_ascii(d.get("title",""))
         self.body = util.unicode_to_ascii(d.get("body",""))
@@ -26,7 +26,7 @@ class NewsItem:
         return
 
     def __cmp__(self, y):
-        return self.date < y.date
+        return cmp(self.date, y.date)
 
     def __hash__(self):
         return self.title.__hash__()
