@@ -7,6 +7,8 @@ import json
 import re
 import os
 
+import pdb
+
 from Extractor import Extractor
 
 API_KEY="hsrw7wujsw9q5mwjujhtmfdk"
@@ -47,9 +49,7 @@ class Calais(Extractor):
         return json.loads(result)
     
     def get_keywords(self, article):
-        content = ' '.join(article.title.tokens + article.lead.tokens)
-
-        results = self.analyze(content)
+        results = self.analyze(article)
         # We are only interested in entities
         results = [ r for r in results.values() if r.has_key("_typeGroup") and r["_typeGroup"] == "entities" ]
 

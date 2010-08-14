@@ -11,10 +11,11 @@ import select_articles
 import util
 
 import sys
+import pdb
 
-import calais
+import Calais
 import nltkExtractor
-extractor = calais.Calais()
+extractor = Calais.Calais()
 #extractor = nltkExtractor.NLTKExtractor()
 
 def NewsLine(filename):
