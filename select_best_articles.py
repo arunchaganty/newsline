@@ -21,7 +21,9 @@ def select_relevant_articles(articles, ranked_keywords):
 
 def select_all_articles(articles, ranked_keywords):
     s = set()
-    for group in articles:
+    for kw, group in zip(ranked_keywords,articles):
+        print kw
         for a in group:
-          s.add(a)
+            print a
+            s.add(a)
     return list(s)

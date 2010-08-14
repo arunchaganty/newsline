@@ -4,15 +4,14 @@ Makes Queries from keywords and their relevances.
 
 import math
 
-def MakeQueriesFromKeywords(keyword_relevances):
+def expand_queries_from_keywords(keyword_relevances, count = 3):
     queries = []
-    
-    keyword_relevances = [a for (a,b) in keyword_relevances[:3]]
-    phrases = keyword_relevances
-    #phrases = GenerateAllProperSubsetsInOrder(keyword_relevances)
-    #phrases = [" ".join(x) for x in phrases]
 
-    return [(a, '') for a in phrases]
+    keywords = keyword_relevances[:count]
 
-def GenerateAllProperSubsetsInOrder(l):
+    queries = [ (' '.join(x), sum(y)) for (x,y) in [ zip(*group) for group in cross_product(keyword_relevances)] ]
+
+    return queries
+
+def cross_product(l):
     return reduce(lambda z, x: z + [y + [x] for y in z], l, [[]])[1:]

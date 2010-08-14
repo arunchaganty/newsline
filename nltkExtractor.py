@@ -59,7 +59,7 @@ class NLTKExtractor(Extractor):
     
         article_frequency = count_articles_threaded.count_articles([(w[0], "") for w in keywords])
 
-        ranked_keywords = [ (word[0], word[1]*math.log(D/d)) for word,d in zip(keywords, article_frequency) ]
+        ranked_keywords = [ (word[0], word[1]*math.log(D/d)) for word,d in zip(keywords, article_frequency) if d > 0]
         ranked_keywords.sort(key = lambda kv: kv[1], reverse=True)
         
         return ranked_keywords

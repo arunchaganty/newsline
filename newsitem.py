@@ -4,11 +4,17 @@ class NewsItem:
     def __init__(self, d):
         self.date = int(d['date'])
         self.url = util.unicode_to_ascii(d['url'])
-        self.title = util.unicode_to_ascii(d['title'])
-        try:
-          self.body = util.unicode_to_ascii(d['body'])
-        except KeyError:
-          self.body = self.title
+        self.title = util.unicode_to_ascii(d.get("title",""))
+        self.body = util.unicode_to_ascii(d.get("body",""))
+        
+        if self.title == "" and self.body != "":
+            self.title = self.body.splitlines()[0]
+        elif self.body == "" and self.title != "":
+            self.body = self.title
+        else:
+            util.Log("%s epic-fail"%(self.url))
+
+        return
 
     def __cmp__(self, y):
         return self.date < y.date

@@ -13,7 +13,7 @@ class GetArticleThread(threading.Thread):
 
     def run(self):
         n = nytimes.NYTimes()
-        self.results = n.get_results(self.keyword, self.title_keyword)
+        self.results = n.get_results(self.keyword, self.title_keyword, rank="closest")
         return
 
 
@@ -23,8 +23,8 @@ def get_articles(search_queries):
 
     results = []
     threads = []
-    for (k, t) in search_queries:
-        thread = GetArticleThread(k, t)
+    for k in search_queries:
+        thread = GetArticleThread(k)
         threads.append(thread)
         thread.start()
 

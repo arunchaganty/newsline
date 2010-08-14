@@ -25,8 +25,12 @@ def NewsLine(filename):
     ranked_keywords = extractor.rank_keywords(k) 
     util.Log(ranked_keywords)
 
-    search_query = make_queries.MakeQueriesFromKeywords(ranked_keywords)
-    articles = get_articles_threaded.get_articles(search_query)
+    # Expand based on subset matches of keywords
+    ranked_keywords = make_queries.expand_queries_from_keywords(ranked_keywords)
+    ranked_keywords.sort(key=lambda x: x[1], reverse=True)
+    ranked_keywords = ranked_keywords[:min(5,len(ranked_keywords))]
+
+    articles = get_articles_threaded.get_articles([w for (w,r) in ranked_keywords])
 
     articles = [[newsitem.NewsItem(a) for a in group] for group in articles]
 
@@ -34,9 +38,6 @@ def NewsLine(filename):
     articles = select_best_articles.select_all_articles(articles, ranked_keywords)
 
     articles.sort(reverse=True)
-
-    for a in articles:
-        print a
 
     return
 
@@ -47,3 +48,4 @@ if __name__ == '__main__':
 
     s = sys.argv[1]
     NewsLine(s)
+
