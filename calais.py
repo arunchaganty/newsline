@@ -39,4 +39,14 @@ class Calais:
         result = self.__pat.findall(s)[0]
 
         return json.loads(result)
+    
+    def get_keywords(self, results, k=5):
+        # We are only interested in entities
+        results = [ r for r in results if r.has_key("_typeGroup") and r["_typeGroup"] == "entities" ]
+
+        # Get top k most relevant keywords
+        results = results.sort(key = lambda x: x['relevance'], reverse = True)[:k]
+        results = [ (x['name'], x['relevance']) for x in results ]
+
+        return results
 
