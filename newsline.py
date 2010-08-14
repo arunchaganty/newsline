@@ -3,9 +3,9 @@
 #
 
 import article
-import count_articles
+import count_articles_threaded
 import extract
-import get_articles
+import get_articles_threaded
 import make_queries
 import util
 
@@ -15,9 +15,9 @@ import random
 class NewsItem:
     def __init__(self, d):
         self.date = int(d['date'])
-        self.url = d['url']
-        self.body = d['body']
-        self.title = d['title']
+        self.url = util.unicode_to_ascii(d['url'])
+        self.body = util.unicode_to_ascii(d['body'])
+        self.title = util.unicode_to_ascii(d['title'])
 
     def __cmp__(self, y):
         return self.date < y.date
@@ -29,7 +29,7 @@ class NewsItem:
         return "%10d %100s"%(self.date, self.title)
 
     def __str__(self):
-        return "% 80s %10d"%(self.title, self.date)
+        return self.__repr__()
 
 def NewsLine(filename):
     a = article.read_article_from_file(filename)
@@ -37,10 +37,10 @@ def NewsLine(filename):
     k = extract.extract_keywords(a)
     util.Log("Finished Extracting Keywords.")
     ranked_keywords = extract.rank_keywords(a, k, 
-        count_articles.count_articles)
+        count_articles_threaded.count_articles)
 
     search_query = make_queries.MakeQueriesFromKeywords(ranked_keywords)
-    articles = get_articles.get_articles(search_query)
+    articles = get_articles_threaded.get_articles(search_query)
 
     articles = [[NewsItem(a) for a in group] for group in articles]
     articles = choose_relevant_articles(articles, ranked_keywords)

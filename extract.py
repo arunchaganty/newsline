@@ -2,7 +2,7 @@
 Extract keywords from news articles.
 """
 
-import count_articles
+import count_articles_threaded
 import util
 
 import nltk
@@ -98,7 +98,4 @@ def rank_keywords(article, keywords, count_function):
     ranked_keywords.sort(key = lambda kv: kv[1], reverse=True)
     
     return ranked_keywords
-
-def get_articles(article, ranked_keywords):
-    pass
 
