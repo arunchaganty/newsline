@@ -12,7 +12,7 @@ def MakeQueriesFromKeywords(keyword_relevances):
     #phrases = GenerateAllProperSubsetsInOrder(keyword_relevances)
     #phrases = [" ".join(x) for x in phrases]
 
-    return [('', phrases[0])] + [(a, '') for a in phrases[1:]]
+    return [(a, '') for a in phrases]
 
 def GenerateAllProperSubsetsInOrder(l):
     return reduce(lambda z, x: z + [y + [x] for y in z], l, [[]])[1:]

@@ -28,7 +28,7 @@ class Calais:
     def __init__(self):
        # Init Curl
         self.__curl = curl.Curl()
-        if os.environ["socks_proxy"]:
+        if os.environ.has_key("socks_proxy"):
             self.__curl.set_option(pycurl.PROXY, os.environ["socks_proxy"])
             self.__curl.set_option(pycurl.PROXYTYPE, pycurl.PROXYTYPE_SOCKS5)
         self.__curl.set_option(pycurl.HTTPHEADER,["SOAPAction"])

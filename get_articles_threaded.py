@@ -33,7 +33,16 @@ def get_articles(search_queries):
         util.Log("Thread joined: (%s, %s)"%(thread.keyword, thread.title_keyword))
         try:
             if thread.results.results() != None:
-                results.append(thread.results.results()['results'])
+                try:
+                    articles = thread.results.results()['results']
+                except KeyError, e:
+                    articles = None
+                    
+                if type(articles) == list:
+                    results.append(articles)
+                elif type(articles) == dict:
+                    results.append([articles])
+
         except AttributeError, e:
             pass
     return results 

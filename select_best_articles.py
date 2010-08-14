@@ -1,7 +1,7 @@
 import random
 import newsitem
 
-def choose_relevant_articles(articles, ranked_keywords):
+def select_relevant_articles(articles, ranked_keywords):
     # Sort each of the set of articles by date
     for x in articles:
         x.sort(reverse=True)
@@ -19,3 +19,9 @@ def choose_relevant_articles(articles, ranked_keywords):
 
     return list(final_articles)
 
+def select_all_articles(articles, ranked_keywords):
+    s = set()
+    for group in articles:
+        for a in group:
+          s.add(a)
+    return list(s)

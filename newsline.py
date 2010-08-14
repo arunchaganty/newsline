@@ -25,7 +25,8 @@ def NewsLine(filename):
 
     articles = [[newsitem.NewsItem(a) for a in group] for group in articles]
 
-    articles = select_best_articles.choose_relevant_articles(articles, ranked_keywords)
+    # articles = select_best_articles.select_relevant_articles(articles, ranked_keywords)
+    articles = select_best_articles.select_all_articles(articles, ranked_keywords)
 
     articles.sort(reverse=True)
 
