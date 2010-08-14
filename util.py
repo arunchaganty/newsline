@@ -6,6 +6,7 @@ import sys
 import unicodedata
 
 def Log(s, stream=sys.stderr, newline=True):
+    s = str(s)
     stream.write(s)
     if newline:
         stream.write("\n")

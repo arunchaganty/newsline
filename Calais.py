@@ -7,10 +7,12 @@ import json
 import re
 import os
 
+from Extractor import Extractor
+
 API_KEY="hsrw7wujsw9q5mwjujhtmfdk"
 CALAIS_URL="http://api.opencalais.com/enlighten/calais.asmx/Enlighten"
 
-class Calais:
+class Calais(Extractor):
     __curl = None
     __params = """<c:params xmlns:c="http://s.opencalais.com/1/pred/"
             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -31,7 +33,9 @@ class Calais:
             self.__curl.set_option(pycurl.PROXYTYPE, pycurl.PROXYTYPE_SOCKS5)
         self.__curl.set_option(pycurl.HTTPHEADER,["SOAPAction"])
 
-    def analyze(self, content):
+    def analyze(self, article):
+        content = ' '.join(article.title.tokens + article.lead.tokens)
+
         post_data = {}
         post_data["licenseId"] = API_KEY
         post_data["paramsXML"] = self.__params
@@ -42,7 +46,9 @@ class Calais:
 
         return json.loads(result)
     
-    def get_keywords(self, content):
+    def get_keywords(self, article):
+        content = ' '.join(article.title.tokens + article.lead.tokens)
+
         results = self.analyze(content)
         # We are only interested in entities
         results = [ r for r in results.values() if r.has_key("_typeGroup") and r["_typeGroup"] == "entities" ]

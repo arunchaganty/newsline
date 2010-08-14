@@ -4,7 +4,6 @@
 
 import article
 import count_articles_threaded
-import extract
 import get_articles_threaded
 import make_queries
 import newsitem
@@ -13,12 +12,18 @@ import util
 
 import sys
 
+import calais
+import nltkExtractor
+#extractor = calais.Calais()
+extractor = nltkExtractor.NLTKExtractor()
+
 def NewsLine(filename):
     a = article.read_article_from_file(filename)
     util.Log("Finished Reading Article.")
-    k = extract.extract_keywords(a)
+    k = extractor.get_keywords(a)
     util.Log("Finished Extracting Keywords.")
-    ranked_keywords = extract.rank_keywords(k) 
+    ranked_keywords = extractor.rank_keywords(k) 
+    util.Log(ranked_keywords)
 
     search_query = make_queries.MakeQueriesFromKeywords(ranked_keywords)
     articles = get_articles_threaded.get_articles(search_query)

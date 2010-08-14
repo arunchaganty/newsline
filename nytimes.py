@@ -12,7 +12,7 @@ import yql
 
 class NYTimes:
 
-    def __init__(self, limit=10):
+    def __init__(self, limit=20):
         self.__limit = limit
         self.__query_default = "select * from nyt.article.search(%d) where "%(self.__limit)
         return
