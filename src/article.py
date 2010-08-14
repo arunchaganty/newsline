@@ -38,8 +38,15 @@ def parse_html(a):
     title = soup.find_class('articleHeadline')[0].text_content()
 
     body = soup.find_class('articleBody')
-    lead = body[0].text_content()
-    text = body[1].text_content()
+
+    try:
+        lead = body[0].text_content()
+        text = body[1].text_content()
+    except IndexError, e:
+        # No separate lead and text
+        all_text = body[0].text_content().strip()
+        lead, text = all_text.split("\n", 1)
+        
     return Article(title, lead, text)
 
 
