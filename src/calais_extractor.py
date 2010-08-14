@@ -2,7 +2,12 @@
 #
 
 import urllib, urllib2
+import signal
+signal_ = signal.signal
+signal.signal = lambda *args: None
 import pycurl, curl
+signal.signal = signal_
+
 import json
 import re
 import os
@@ -34,6 +39,7 @@ class CalaisExtractor(extractor.Extractor):
             self.__curl.set_option(pycurl.PROXY, os.environ["socks_proxy"])
             self.__curl.set_option(pycurl.PROXYTYPE, pycurl.PROXYTYPE_SOCKS5)
         self.__curl.set_option(pycurl.HTTPHEADER,["SOAPAction"])
+        self.__curl.set_option(pycurl.NOSIGNAL,1)
 
     def analyze(self, content):
 
@@ -43,7 +49,6 @@ class CalaisExtractor(extractor.Extractor):
         post_data["content"] = content
 
         s = self.__curl.post(CALAIS_URL, post_data)
-        print s
         result = self.__pat.findall(s)[0]
 
         return json.loads(result)

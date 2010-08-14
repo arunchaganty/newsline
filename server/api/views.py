@@ -5,7 +5,7 @@ from json import dumps as json_dumps
 
 from server import settings
 
-#from server import newsline
+from server.newsline import newsline
 
 def render_to_response(request, filename, ctx={}):
     context =  RequestContext (request,
@@ -22,12 +22,13 @@ def api(request):
             reply["error"] = "POST argument 'url' required"
         else:
             url = request.POST["url"]
-            #if not newsline.check_supports(url):
-            #    reply["error"] = "'url' not from recognized news site"
-            #else:
-            #    #data = newsline.get_causal_articles(request)
-            #    reply["data"] = data
-            reply["data"] = url
+            if not newsline.CheckUri(url):
+                reply["error"] = "'url' not from recognized news site"
+            else:
+                data = newsline.NewsLine(url, is_html=True)
+                print data
+                # json understands dicts
+                reply["data"] = map(lambda x: x.toDict(), data)
     else:
         reply["error"] = "POST argument 'url' required"
 

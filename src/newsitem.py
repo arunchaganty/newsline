@@ -40,3 +40,11 @@ class NewsItem:
     def __str__(self):
         return self.__repr__()
 
+    def toDict(self):
+        d = {}
+        d["date"] = str(self.date)
+        d["url"] = self.url
+        d["title"] = self.title
+
+        return d
+

@@ -19,6 +19,13 @@ import nltk_extractor
 extractor = calais_extractor.CalaisExtractor()
 #extractor = nltk_extractor.NLTKExtractor()
 
+def CheckUri(uri):
+    valid_sites = ["http://www.nytimes.com/"]
+    for site in valid_sites:
+        if uri.startswith(site):
+            return True
+    return False
+
 def NewsLine(uri, is_html=True, print_results=False):
     a = article.get_article_from_uri(uri)
     a = article.parse(a, is_html)
@@ -50,7 +57,6 @@ def GetTimeLine(a, print_results=False):
       for a in articles: print a
 
     return articles
-
 
 def Main():
     usage = "Usage: %s [-h] <article uri>"%(sys.argv[0])

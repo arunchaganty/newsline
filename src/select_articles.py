@@ -46,11 +46,11 @@ def select_temporal_starting_articles(article_set, ranked_keywords):
     for group in groups:
         group.sort(key=lambda x: x[1], reverse=True)
         if len(group) > globals.article_threshold:
-            articles += group[:2]
+            articles += map(lambda x: x[0], group[:2])
         else:
-            articles.append(group[0])
+            articles.append(group[0][0])
 
-    articles.sort(key=lambda x: x[0].date, reverse=True)
+    articles.sort(reverse=True)
 
     return articles
 
