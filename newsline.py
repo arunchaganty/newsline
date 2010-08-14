@@ -13,16 +13,22 @@ import util
 import sys
 import pdb
 
-import Calais
-import nltkExtractor
-extractor = Calais.Calais()
-#extractor = nltkExtractor.NLTKExtractor()
+import calais_extractor
+import nltk_extractor
 
-def NewsLine(filename):
-    a = article.read_article_from_file(filename)
-    util.Log("Finished Reading Article.")
+extractor = calais_extractor.CalaisExtractor()
+#extractor = nltk_extractor.NLTKExtractor()
+
+def NewsLine(uri, is_html=True, print_results=False):
+    a = article.get_article_from_uri(uri)
+    a = article.parse(a, is_html)
+
+    return GetTimeLine(a, print_results)
+
+def GetTimeLine(a, print_results=False):
     k = extractor.get_keywords(a)
     util.Log("Finished Extracting Keywords.")
+
     ranked_keywords = extractor.rank_keywords(k) 
     util.Log(ranked_keywords)
 
@@ -32,26 +38,48 @@ def NewsLine(filename):
     ranked_keywords = ranked_keywords[:min(5,len(ranked_keywords))]
 
     articles = get_articles_threaded.get_articles([w for (w,r) in ranked_keywords])
-
     articles = [[newsitem.NewsItem(a) for a in group] for group in articles]
 
-    # articles = select_best_articles.select_relevant_articles(articles, ranked_keywords)
+    #articles = select_best_articles.select_relevant_articles(articles, ranked_keywords)
     #articles = select_articles.select_all_articles(articles, ranked_keywords)
     articles = select_articles.select_temporal_starting_articles(articles, ranked_keywords)
 
     articles.sort(reverse=True)
 
-    for a in articles:
-        print a
+    if print_results:
+      for a in articles: print a
+
+    return articles
 
 
+def Main():
+    usage = "Usage: %s [-h] <article uri>"%(sys.argv[0])
+    html_flag = "-h"
+
+    uri_is_html = False
+
+    if len(sys.argv) < 2:
+        print usage
+        sys.exit(1)
+
+    if len(sys.argv) == 2:
+        if sys.argv[1] != html_flag:
+            uri = sys.argv[1]
+        else:
+            print "No uri found."
+            print usage
+            sys.exit(1)
+    if len(sys.argv) == 3:
+        if sys.argv[1] == html_flag and sys.argv[2] != html_flag:
+            uri = sys.argv[2]
+            uri_is_html = True
+        else:
+            print "Incorrect Arguments. Maybe wrong order?"
+            print usage
+            sys.exit(1)
+
+    NewsLine(uri, is_html=uri_is_html, print_results=True)
     return
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print "Usage %s <article>"%(sys.argv[0])
-        sys.exit(1)
-
-    s = sys.argv[1]
-    NewsLine(s)
-
+    Main()

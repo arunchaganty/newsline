@@ -9,12 +9,12 @@ import os
 
 import pdb
 
-from Extractor import Extractor
+import extractor
 
 API_KEY="hsrw7wujsw9q5mwjujhtmfdk"
 CALAIS_URL="http://api.opencalais.com/enlighten/calais.asmx/Enlighten"
 
-class Calais(Extractor):
+class CalaisExtractor(extractor.Extractor):
     __curl = None
     __params = """<c:params xmlns:c="http://s.opencalais.com/1/pred/"
             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">

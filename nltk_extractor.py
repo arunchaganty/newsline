@@ -8,9 +8,9 @@ import nltk
 import math
 import re
 
-from Extractor import Extractor
+import extractor
 
-class NLTKExtractor(Extractor):
+class NLTKExtractor(extractor.Extractor):
 
     def get_keywords(self, article, k=5):
         """Extract keywords from an article class. 
