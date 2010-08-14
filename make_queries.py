@@ -8,8 +8,9 @@ def MakeQueriesFromKeywords(keyword_relevances):
     queries = []
     
     keyword_relevances = [a for (a,b) in keyword_relevances[:3]]
-    phrases = GenerateAllProperSubsetsInOrder(keyword_relevances)
-    phrases = [" ".join(x) for x in phrases]
+    phrases = keyword_relevances
+    #phrases = GenerateAllProperSubsetsInOrder(keyword_relevances)
+    #phrases = [" ".join(x) for x in phrases]
 
     return [('', phrases[0])] + [(a, '') for a in phrases[1:]]
 

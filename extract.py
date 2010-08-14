@@ -17,11 +17,10 @@ def extract_keywords(article):
     """Extract keywords from an article class. """
 
     # Title 
-    keywords = calais.get_keywords(analyzer.analyze(article.title))
-    keywords += calais.get_keywords(analyzer.analyze(article.lead))
-
-    # Keywords
-    keywords = list(relevant_lead.union(relevant_title))
-
+    content = ' '.join(article.title.tokens + article.lead.tokens)
+    keywords = analyzer.get_keywords(content)
     return keywords
+
+def rank_keywords(results, count=5):
+    return analyzer.rank_keywords(results, count)
 

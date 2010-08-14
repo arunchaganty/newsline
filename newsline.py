@@ -36,11 +36,13 @@ def NewsLine(filename):
     util.Log("Finished Reading Article.")
     k = extract.extract_keywords(a)
     util.Log("Finished Extracting Keywords.")
-    ranked_keywords = extract.rank_keywords(a, k, 
-        count_articles.count_articles)
+    ranked_keywords = extract.rank_keywords(k) 
 
     search_query = make_queries.MakeQueriesFromKeywords(ranked_keywords)
+    print search_query
+
     articles = get_articles.get_articles(search_query)
+    print articles
 
     articles = [[NewsItem(a) for a in group] for group in articles]
     articles = choose_relevant_articles(articles, ranked_keywords)
@@ -74,7 +76,7 @@ def choose_relevant_articles(articles, ranked_keywords):
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print "Usage %s <article>"%(sys.argv[0])
+        sys.exit(1)
 
     s = sys.argv[1]
     NewsLine(s)
-

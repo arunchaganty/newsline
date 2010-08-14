@@ -6,7 +6,6 @@ import os
 import urllib
 import urllib2
 
-
 def init_proxy_in_urllib():
     """ Sets the environment proxies in urllib. """
     proxies = {}
@@ -16,6 +15,8 @@ def init_proxy_in_urllib():
         proxies["https"] = os.environ["https_proxy"]
     if os.environ.has_key("ftp_proxy"):
         proxies["ftp"] = os.environ["ftp_proxy"]
+    if os.environ.has_key("socks_proxy"):
+        proxies["socks"] = os.environ["socks_proxy"]
 
     # Set proxy handler
     proxy = urllib2.ProxyHandler(proxies)
