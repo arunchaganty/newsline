@@ -1,7 +1,7 @@
 import random
 import newsitem
 
-import pdb
+import globals
 
 def select_relevant_articles(articles, ranked_keywords):
     # Sort each of the set of articles by date
@@ -24,9 +24,7 @@ def select_relevant_articles(articles, ranked_keywords):
 def select_all_articles(articles, ranked_keywords):
     s = set()
     for kw, group in zip(ranked_keywords,articles):
-        print kw
         for a in group:
-            print a
             s.add(a)
     return list(s)
 
@@ -44,7 +42,15 @@ def select_temporal_starting_articles(article_set, ranked_keywords):
     groups = bin_by_time(articles, lambda x: x[0].date)
 
     # choose most relevant article in each bin
-    articles = [ max(group, key=lambda x: x[1]) for group in groups ]
+    articles = []
+    for group in groups:
+        group.sort(key=lambda x: x[1], reverse=True)
+        if len(group) > globals.article_threshold:
+            articles += group[:2]
+        else:
+            articles.append(group[0])
+
+    articles.sort(key=lambda x: x[0].date, reverse=True)
 
     return articles
 
