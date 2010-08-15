@@ -54,7 +54,7 @@ class CalaisExtractor(extractor.Extractor):
         return json.loads(result)
     
     def get_keywords(self, article):
-        content = ' '.join(article.title.tokens + article.lead.tokens)
+        content = article.title + article.lead
 
         results = self.analyze(content)
         # We are only interested in entities

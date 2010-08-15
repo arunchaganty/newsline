@@ -34,9 +34,19 @@ def parse_text(a):
 
 def parse_html(a):
     soup = lxml.html.document_fromstring(a)
-    title = soup.find_class('articleHeadline')[0].text_content()
+    title = ""
 
+    try:
+        title = soup.find_class('articleHeadline')[0].text_content()
+    except IndexError:
+        title = soup.xpath('//head/title')[0].text_content()
+   
     body = soup.find_class('articleBody')
+    if body == []:
+        try:
+            body = soup.get_element_by_id('articleBody')
+        except KeyError, e:
+            body = ""
 
     try:
         lead = body[0].text_content()
