@@ -20,15 +20,16 @@ def api(request):
     if request.GET:
         try:
             if not request.GET.has_key("url"):
-                raise ArgumentException("POST argument 'url' required")
+                raise ValueError("POST argument 'url' required")
 
             url = request.GET["url"]
             if not newsline.CheckUri(url):
-                raise ArgumentException("'url' not from recognized news site")
+                raise ValueError("'url' not from recognized news site")
 
             data = newsline.NewsLine(url, is_html=True)
             # json understands dicts
             reply["data"] = map(lambda x: x.toDict(), data)
+            #reply["data"] = [{"date":"2008-09-10", "title": "test", "url":"http://localhost/"}, {"date":"2008-09-10", "title": "test", "url":"http://localhost/"}, {"date":"2008-09-10", "title": "test", "url":"http://localhost/"}] 
         except StandardError as e:
             reply["error"] = e.message
     else:

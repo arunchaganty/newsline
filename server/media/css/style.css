@@ -1,6 +1,6 @@
 
 body {
-    width: 600px;
+    width: 800px;
     margin: 30px auto;
 }
 
@@ -49,6 +49,14 @@ div#footer {
 /* Miscellaneous */
 div.centered {
     text-align: center;
+}
+
+/* Poem */
+p#poem {
+    margin: auto 1em;
+    font-size: 0.9em;
+    margin-top: 4em;
+    margin-bottom: 2em;
 }
 
 
