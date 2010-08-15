@@ -18,20 +18,19 @@ def render_to_response(request, filename, ctx={}):
 def api(request):
     reply = {}
     if request.GET:
-        if not request.GET.has_key("url"):
-            reply["error"] = "POST argument 'url' required"
-        else:
+        try:
+            if not request.GET.has_key("url"):
+                raise ArgumentException("POST argument 'url' required")
+
             url = request.GET["url"]
             if not newsline.CheckUri(url):
-                reply["error"] = "'url' not from recognized news site"
-            else:
-                try:
-                    data = newsline.NewsLine(url, is_html=True)
-                    # json understands dicts
-                    reply["data"] = map(lambda x: x.toDict(), data)
-                except StandardError as e:
-                    print e
-                    reply["error"] = "Unknown error"
+                raise ArgumentException("'url' not from recognized news site")
+
+            data = newsline.NewsLine(url, is_html=True)
+            # json understands dicts
+            reply["data"] = map(lambda x: x.toDict(), data)
+        except StandardError as e:
+            reply["error"] = e.message
     else:
         reply["pong"] = ""
 

@@ -6,6 +6,13 @@ import os
 import urllib
 import urllib2
 
+import signal
+signal_ = signal.signal
+signal.signal = lambda *args: None
+import pycurl, curl
+signal.signal = signal_
+
+
 def init_proxy_in_urllib():
     """ Sets the environment proxies in urllib. """
     proxies = {}
@@ -30,9 +37,14 @@ class YQL:
     __format = "json"
     __limit = "1000"
     __env = 'store://datatables.org/alltableswithkeys'
+    __curl = None
 
     def __init__(self):
-        init_proxy_in_urllib()
+        self.__curl = curl.Curl()
+        if os.environ.has_key("socks_proxy"):
+            self.__curl.set_option(pycurl.PROXY, os.environ["socks_proxy"])
+            self.__curl.set_option(pycurl.PROXYTYPE, pycurl.PROXYTYPE_SOCKS5)
+        self.__curl.set_option(pycurl.NOSIGNAL,1)
         return
 
     def get_uri(self, query, opt_params = {}):
@@ -48,9 +60,7 @@ class YQL:
     def get_results(self, query, opt_params={}):
         url = self.get_uri(query, opt_params)
 
-        stream = urllib2.urlopen(url)
-        data = stream.read()
-        stream.close()
+        data = self.__curl.get(url)
 
         return YQLResult(data)
 
