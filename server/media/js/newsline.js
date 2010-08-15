@@ -10,11 +10,32 @@ Y.onEnd.call(Z,P(Y,a,X));}},V=function(a,Z){var X=L[a],Y;if(X.timer){clearTimeou
 var throttle=function(fn,ms){ms=(ms)?ms:(Y.config.throttleTime||150);if(ms===-1){return(function(){fn.apply(null,arguments);});}var last=(new Date()).getTime();return(function(){var now=(new Date()).getTime();if(now-last>ms){last=now;fn.apply(null,arguments);}});};Y.throttle=throttle;},"3.1.1",{requires:["yui-base"]});YUI.add("yui",function(A){},"3.1.1",{use:["yui-base","get","intl-base","yui-log","yui-later","yui-throttle"]});
 
 
-YUI().use('node', function(Y) {
+YUI().use('io', function(Y) {
     main(Y);
 });
 
-main = function(Y) {
+var handlePOSTSuccess = function(ioId, response)
+{
+    x = document.createElement();
+    data = response['data'];
+
+    divHTML = ""
+    for(var i = 0; i < data.length; i++) {
+        for(var j in data[i]) {
+            divHTML += "<i>" + j +"</i>: " + data[i][j] + ", ";
+        }
+    }
+
+    x.innerHTML = divHTML;
+    document.appendChild(x);
+}
+
+var handlePOSTFailure = function(ioId, response) { 
+    alert('Something got screwed');
+}
+
+
+var main = function(Y) {
     var current_href;
     if(document.location && document.location.href) {
         current_href = document.location.href;
@@ -23,10 +44,16 @@ main = function(Y) {
       return;
     }
 
+    current_href = encodeURIComponent(current_href);
+
+    var cfg = { method: "POST"};
+      // headers: { 'X-Transaction': 'NYTimes Retrospective'}
+    // };
 
 
-
-
+		Y.on('io:success', handlePOSTSuccess);
+		Y.on('io:failure', handlePOSTFailure);
+    var request = Y.io("http://10.94.218.121:8000/api", cfg)
 }
 
 
