@@ -4,7 +4,6 @@ Definition of the Article Class
 import util
 
 import lxml.html
-import nltk
 
 import urllib
 
@@ -13,9 +12,9 @@ class Article:
         title, lead, text = [util.unicode_to_ascii(x) for x in [title, lead, text]]
         # lead, text = [x.lower() for x in [lead, text]]
 
-        self.title = nltk.Text(nltk.wordpunct_tokenize(title))
-        self.lead = nltk.Text(nltk.wordpunct_tokenize(lead))
-        self.text = nltk.Text(nltk.wordpunct_tokenize(text))
+        self.title = title
+        self.lead = lead
+        self.text = text
         return
 
 def get_article_from_uri(uri):
@@ -35,9 +34,19 @@ def parse_text(a):
 
 def parse_html(a):
     soup = lxml.html.document_fromstring(a)
-    title = soup.find_class('articleHeadline')[0].text_content()
+    title = ""
 
+    try:
+        title = soup.find_class('articleHeadline')[0].text_content()
+    except IndexError:
+        title = soup.xpath('//head/title')[0].text_content()
+   
     body = soup.find_class('articleBody')
+    if body == []:
+        try:
+            body = soup.get_element_by_id('articleBody')
+        except KeyError, e:
+            body = ""
 
     try:
         lead = body[0].text_content()

@@ -49,12 +49,13 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/teju/Projects/newsline/media/'
+MEDIA_ROOT = '/home/spranesh/projects/newsline/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://localhost/~teju/newsline/media'
+MEDIA_URL = 'http://localhost/newsline/media'
+# MEDIA_URL = SITE_URL + "media"
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
