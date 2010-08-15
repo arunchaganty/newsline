@@ -1,4 +1,3 @@
-
 /*
 YUI min.
 version: 3.1.1
@@ -9,51 +8,35 @@ if(typeof YUI==="undefined"){var YUI=function(){var D=this,B=arguments,C,A=B.len
 Y.onEnd.call(Z,P(Y,a,X));}},V=function(a,Z){var X=L[a],Y;if(X.timer){clearTimeout(X.timer);}if(X.onFailure){Y=X.context||X;X.onFailure.call(Y,P(X,Z));}O(a,Z,"failure");},I=function(a){var X=L[a],Z,Y;if(X.timer){clearTimeout(X.timer);}X.finished=true;if(X.aborted){Z="transaction "+a+" was aborted";V(a,Z);return;}if(X.onSuccess){Y=X.context||X;X.onSuccess.call(Y,P(X));}O(a,Z,"OK");},Q=function(Z){var X=L[Z],Y;if(X.onTimeout){Y=X.context||X;X.onTimeout.call(Y,P(X));}O(Z,"timeout","timeout");},H=function(Z,c){var Y=L[Z],b,g,f,e,a,X,i;if(Y.timer){clearTimeout(Y.timer);}if(Y.aborted){b="transaction "+Z+" was aborted";V(Z,b);return;}if(c){Y.url.shift();if(Y.varName){Y.varName.shift();}}else{Y.url=(B.isString(Y.url))?[Y.url]:Y.url;if(Y.varName){Y.varName=(B.isString(Y.varName))?[Y.varName]:Y.varName;}}g=Y.win;f=g.document;e=f.getElementsByTagName("head")[0];if(Y.url.length===0){I(Z);return;}X=Y.url[0];if(!X){Y.url.shift();return H(Z);}if(Y.timeout){Y.timer=setTimeout(function(){Q(Z);},Y.timeout);}if(Y.type==="script"){a=S(X,g,Y.attributes);}else{a=T(X,g,Y.attributes);}J(Y.type,a,Z,X,g,Y.url.length);Y.nodes.push(a);if(Y.insertBefore){i=M(Y.insertBefore,Z);if(i){i.parentNode.insertBefore(a,i);}}else{e.appendChild(a);}if((C.webkit||C.gecko)&&Y.type==="css"){H(Z,X);}},G=function(){if(U){return;}U=true;var X,Y;for(X in L){if(L.hasOwnProperty(X)){Y=L[X];if(Y.autopurge&&Y.finished){N(Y.tId);delete L[X];}}}U=false;},R=function(Y,X,Z){Z=Z||{};var c="q"+(K++),a,b=Z.purgethreshold||A.Get.PURGE_THRESH;if(K%b===0){G();}L[c]=A.merge(Z,{tId:c,type:Y,url:X,finished:false,nodes:[]});a=L[c];a.win=a.win||A.config.win;a.context=a.context||a;a.autopurge=("autopurge" in a)?a.autopurge:(Y==="script")?true:false;a.attributes=a.attributes||{};a.attributes.charset=Z.charset||a.attributes.charset||"utf-8";setTimeout(function(){H(c);},0);return{tId:c};};J=function(Z,e,d,Y,c,b,X){var a=X||H;if(C.ie){e.onreadystatechange=function(){var f=this.readyState;if("loaded"===f||"complete"===f){e.onreadystatechange=null;a(d,Y);}};}else{if(C.webkit){if(Z==="script"){e.addEventListener("load",function(){a(d,Y);});}}else{e.onload=function(){a(d,Y);};e.onerror=function(f){V(d,f+": "+Y);};}}};M=function(X,a){var Y=L[a],Z=(B.isString(X))?Y.win.document.getElementById(X):X;if(!Z){V(a,"target node not found: "+X);}return Z;};N=function(c){var Y,a,g,e,j,b,Z,f,X=L[c];if(X){Y=X.nodes;a=Y.length;g=X.win.document;e=g.getElementsByTagName("head")[0];if(X.insertBefore){j=M(X.insertBefore,c);if(j){e=j.parentNode;}}for(b=0;b<a;b=b+1){Z=Y[b];if(Z.clearAttributes){Z.clearAttributes();}else{for(f in Z){if(Z.hasOwnProperty(f)){delete Z[f];}}}e.removeChild(Z);}}X.nodes=[];};return{PURGE_THRESH:20,_finalize:function(X){setTimeout(function(){I(X);},0);},abort:function(Y){var Z=(B.isString(Y))?Y:Y.tId,X=L[Z];if(X){X.aborted=true;}},script:function(X,Y){return R("script",X,Y);},css:function(X,Y){return R("css",X,Y);}};}();})();},"3.1.1");YUI.add("intl-base",function(B){var A=/[, ]/;B.mix(B.namespace("Intl"),{lookupBestLang:function(G,H){var F,I,C,E;function D(K){var J;for(J=0;J<H.length;J+=1){if(K.toLowerCase()===H[J].toLowerCase()){return H[J];}}}if(B.Lang.isString(G)){G=G.split(A);}for(F=0;F<G.length;F+=1){I=G[F];if(!I||I==="*"){continue;}while(I.length>0){C=D(I);if(C){return C;}else{E=I.lastIndexOf("-");if(E>=0){I=I.substring(0,E);if(E>=2&&I.charAt(E-2)==="-"){I=I.substring(0,E-2);}}else{break;}}}}return"";}});},"3.1.1",{requires:["yui-base"]});YUI.add("yui-log",function(A){(function(){var E,D=A,F="yui:log",B="undefined",C={debug:1,info:1,warn:1,error:1};D.log=function(I,Q,G,O){var K,N,L,J,M,H=D,P=H.config;if(P.debug){if(G){N=P.logExclude;L=P.logInclude;if(L&&!(G in L)){K=1;}else{if(N&&(G in N)){K=1;}}}if(!K){if(P.useBrowserConsole){J=(G)?G+": "+I:I;if(H.Lang.isFunction(P.logFn)){P.logFn(I,Q,G);}else{if(typeof console!=B&&console.log){M=(Q&&console[Q]&&(Q in C))?Q:"log";console[M](J);}else{if(typeof opera!=B){opera.postError(J);}}}}if(H.fire&&!O){if(!E){H.publish(F,{broadcast:2});E=1;}H.fire(F,{msg:I,cat:Q,src:G});}}}return H;};D.message=function(){return D.log.apply(D,arguments);};})();},"3.1.1",{requires:["yui-base"]});YUI.add("yui-later",function(A){(function(){var B=A.Lang,C=function(K,E,L,G,H){K=K||0;E=E||{};var F=L,J=A.Array(G),I,D;if(B.isString(L)){F=E[L];}if(!F){}I=function(){F.apply(E,J);};D=(H)?setInterval(I,K):setTimeout(I,K);return{id:D,interval:H,cancel:function(){if(this.interval){clearInterval(D);}else{clearTimeout(D);}}};};A.later=C;B.later=C;})();},"3.1.1",{requires:["yui-base"]});YUI.add("yui-throttle",function(Y){
 var throttle=function(fn,ms){ms=(ms)?ms:(Y.config.throttleTime||150);if(ms===-1){return(function(){fn.apply(null,arguments);});}var last=(new Date()).getTime();return(function(){var now=(new Date()).getTime();if(now-last>ms){last=now;fn.apply(null,arguments);}});};Y.throttle=throttle;},"3.1.1",{requires:["yui-base"]});YUI.add("yui",function(A){},"3.1.1",{use:["yui-base","get","intl-base","yui-log","yui-later","yui-throttle"]});
 
-
-YUI().use('io', function(Y) {
-    main(Y);
-});
-
-var handlePOSTSuccess = function(ioId, response)
+function load_dataFetch()
 {
-    x = document.createElement();
-    data = response['data'];
-
-    divHTML = ""
-    for(var i = 0; i < data.length; i++) {
-        for(var j in data[i]) {
-            divHTML += "<i>" + j +"</i>: " + data[i][j] + ", ";
-        }
-    }
-
-    x.innerHTML = divHTML;
-    document.appendChild(x);
+    var src = 'http://localhost/~teju/newsline/media/js/dataFetch.js';
+    var dataFetch=document.createElement('script');
+    dataFetch.type='text/javascript';
+    dataFetch.src=src;
+    document.documentElement.appendChild(dataFetch);
 }
+load_dataFetch();
 
-var handlePOSTFailure = function(ioId, response) { 
-    alert('Something got screwed');
-}
+var apiUri="http://10.6.16.222:8000/api/";
+var serverUri="http://10.6.16.222/~teju/media/newsline/";
 
+YUI({ modules: 
+       { data_fetch: {fullpath: serverUri+'js/dataFetch.js' }, },
+       }).use('io', 'data-fetch', function(Y) {
+           var current_href;
+           if(document.location && document.location.href) {
+               current_href = document.location.href;
+           } else {
+               console.log('Cant access document.location');
+               return;
+           }
 
-var main = function(Y) {
-    var current_href;
-    if(document.location && document.location.href) {
-        current_href = document.location.href;
-    } else {
-      alert('Cant access document.location');
-      return;
-    }
+           var handleResponse = function(data) {console.log(data);};
 
-    current_href = encodeURIComponent(current_href);
+           current_href = encodeURIComponent(current_href);
 
-    var cfg = { method: "POST"};
-      // headers: { 'X-Transaction': 'NYTimes Retrospective'}
-    // };
-
-
-		Y.on('io:success', handlePOSTSuccess);
-		Y.on('io:failure', handlePOSTFailure);
-    var request = Y.io("http://10.94.218.121:8000/api", cfg)
-}
-
-
+           var requestUri = apiUri 
+               //requestUri += "?url=" + current_href
+               YAHOO.remoteData.fetch(requestUri, handleResponse, this, true);
+       });

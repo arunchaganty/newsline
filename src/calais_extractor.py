@@ -72,7 +72,7 @@ class CalaisExtractor(extractor.Extractor):
         return results 
 
 def demo():
-    c = Calais()
+    c = CalaisExtractor()
     content = """ China to Build State-Run Search Engine 
             SHANGHAI - In an apparent bid to extend its control over the
             Internet and cash in on the rapid growth of mobile devices,

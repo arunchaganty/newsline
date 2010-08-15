@@ -17,11 +17,11 @@ def render_to_response(request, filename, ctx={}):
 
 def api(request):
     reply = {}
-    if request.POST:
-        if not request.POST.has_key("url"):
+    if request.GET:
+        if not request.GET.has_key("url"):
             reply["error"] = "POST argument 'url' required"
         else:
-            url = request.POST["url"]
+            url = request.GET["url"]
             if not newsline.CheckUri(url):
                 reply["error"] = "'url' not from recognized news site"
             else:
@@ -29,13 +29,20 @@ def api(request):
                     data = newsline.NewsLine(url, is_html=True)
                     # json understands dicts
                     reply["data"] = map(lambda x: x.toDict(), data)
-                except StandardError:
+                except StandardError as e:
+                    print e
                     reply["error"] = "Unknown error"
     else:
-        reply["error"] = "POST argument 'url' required"
+        reply["pong"] = ""
 
-    print json_dumps(reply)
-    response = HttpResponse(json_dumps(reply), mimetype="application/json")
+    data = json_dumps(reply)
+    print data
+
+    # Wrap response in a function callback (jsonp)
+    if request.GET and request.GET.has_key("callback"):
+        data = "%s(%s)"%(request.GET["callback"],data)
+
+    response = HttpResponse(data, mimetype="application/json")
 
     return response
 
